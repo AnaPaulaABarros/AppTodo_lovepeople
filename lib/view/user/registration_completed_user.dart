@@ -8,6 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RegistrationCompleted extends StatefulWidget {
  
+  RegistrationCompleted ({Key? key}) : super(key: key);
+
+@override
+  State<RegistrationCompleted> createState() => _RegistrationCompletedState();
+}
+
+class _RegistrationCompletedState extends State<RegistrationCompleted> {
   List<String> list = [];
 
   var index;
@@ -15,8 +22,10 @@ class RegistrationCompleted extends StatefulWidget {
   void addList(value) {
     list.add(value);
   }
+
+
   
-    @override
+    @override 
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
