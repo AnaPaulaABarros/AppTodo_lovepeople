@@ -1,18 +1,11 @@
 import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
+class RegisterTodo extends StatelessWidget {
+  
+   RegisterTodo({Key? key}) : super(key: key);
 
-class RegisterTodo extends StatefulWidget {
-
-
-  RegisterTodo({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterTodo> createState() => _RegisterTodoState();
-}
-
-class _RegisterTodoState extends State<RegisterTodo> {
+  
   final formkey = GlobalKey<FormState>();
 
   final _controler = TextEditingController();
@@ -42,32 +35,29 @@ class _RegisterTodoState extends State<RegisterTodo> {
                     Center(
                       child: Container(
                           alignment: AlignmentDirectional.topCenter,
-                          child: Text(
+                          child: const Text(
                             'Nova Tarefa',
-                            style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
+                            style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
-                            )),
+                            ),
                           ),
                           margin: const EdgeInsets.fromLTRB(40, 40, 40, 50)),
                     ),
                     TextFormField(
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                              color: Color(0xff3101B9),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400)),
+                      style: const TextStyle(
+                          color: Color(0xff3101B9),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         hintText: ('Título tarefa'),
-                        hintStyle: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                              color: Color(0xFF3101B9),
-                              fontWeight: FontWeight.w400),
+                        hintStyle: const TextStyle(
+                          color: Color(0xFF3101B9),
+                          fontWeight: FontWeight.w400,
                           fontSize: 20,
                         ),
                         border: OutlineInputBorder(
@@ -97,12 +87,11 @@ class _RegisterTodoState extends State<RegisterTodo> {
                           decoration: InputDecoration(
                             hintText:
                                 ('Escreva uma descrição para sua tarefa.'),
-                            hintStyle: GoogleFonts.roboto(
-                                textStyle: TextStyle(
+                            hintStyle:  TextStyle(
                               color: const Color(0xFF3101B9).withOpacity(0.5),
                               fontSize: 18.0,
                               fontWeight: FontWeight.w500,
-                            )),
+                            ),
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(

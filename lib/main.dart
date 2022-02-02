@@ -1,18 +1,25 @@
 import 'package:apptodo_lovepeople/view/home/home.dart';
+import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
+import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
 import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
   runApp(const MyApp());
+  
+  
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) =>
+   MaterialApp(
+    debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: const ColorScheme(
@@ -31,6 +38,6 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home: RegistrationCompleted(),
+        home: RegisterTodo(),
       );
 }

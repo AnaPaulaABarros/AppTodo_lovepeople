@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegistrationCompleted extends StatelessWidget {
+  
   const RegistrationCompleted({Key? key}) : super(key: key);
 
   @override
@@ -22,15 +22,15 @@ class RegistrationCompleted extends StatelessWidget {
                       40,
                       20,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Cadastro concluído!',
-                      style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
+                      style: 
+                       TextStyle(
                           fontSize: 25,
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
-                      ),
+                      
                     ),
                   ),
                   ElevatedButton(
@@ -47,16 +47,15 @@ class RegistrationCompleted extends StatelessWidget {
                     // }
                     // });
                     // },
-                    child: Text(
+                    child: const Text(
                       'Começar',
-                      style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
+                      style:   TextStyle(
                             fontSize: 20,
                             height: 1.0,
                             color: Colors.white,
                             fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                  ),
+                    
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         const Color(0xff3101B9),
@@ -103,15 +102,14 @@ class RegistrationCompleted extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
+                      const Text(
                         'Os ventos da programação estão indo até você',
-                        style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
+                        style: TextStyle(
                             fontSize: 15.8,
                             color: Color(0xff3101B9),
                             fontWeight: FontWeight.w400,
                             // height: 16.5,
-                          ),
+                         
                         ),
                         textAlign: TextAlign.center,
                       ),

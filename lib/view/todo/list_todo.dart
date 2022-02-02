@@ -1,20 +1,17 @@
 import 'dart:ui';
-import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class ListTodo extends StatelessWidget {
- 
+  
    ListTodo({Key? key}) : super(key: key);
 
+  
   bool hidepassword = true;
-
   get adicionarRegistro => null;
+List<String> registro = ['Ana Paula','arroz'];
 
-  List<String> registro = ['Ana Paula','arroz'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +90,6 @@ class ListTodo extends StatelessWidget {
               ),
             ])));
   }
-
 }
 
   
