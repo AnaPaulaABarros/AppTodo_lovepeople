@@ -3,13 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 
-class RegisterTodo extends StatelessWidget {
+class RegisterTodo extends StatefulWidget {
+
+
+  RegisterTodo({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterTodo> createState() => _RegisterTodoState();
+}
+
+class _RegisterTodoState extends State<RegisterTodo> {
   final formkey = GlobalKey<FormState>();
+
   final _controler = TextEditingController();
 
   var value;
-
-  RegisterTodo({Key? key}) : super(key: key);
 
   get color => null;
 
