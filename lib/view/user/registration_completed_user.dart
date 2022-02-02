@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-class RegistrationCompleted extends State<Home> {
+class RegistrationCompleted extends StatefulWidget {
  
   List<String> list = [];
 
@@ -119,6 +119,12 @@ class RegistrationCompleted extends State<Home> {
             ],
           )
         ]));
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
 

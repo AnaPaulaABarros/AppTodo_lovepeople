@@ -1,4 +1,5 @@
 import 'package:apptodo_lovepeople/view/home/home.dart';
+import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
               onError: Color(0xFFA901F7),
               brightness: Brightness.light)
      ),
-     home:  Home(),
+     home:  RegistrationCompleted(),
   );
 }
 
