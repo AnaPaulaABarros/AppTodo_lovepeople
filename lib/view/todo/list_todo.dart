@@ -1,22 +1,30 @@
+
 import 'dart:ui';
+import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart';
 
 class ListTodo extends StatelessWidget {
-  
-   ListTodo({Key? key}) : super(key: key);
 
-  
+  ListTodo({Key? key}) : super(key: key);
+
   bool hidepassword = true;
+
   get adicionarRegistro => null;
-List<String> registro = ['Ana Paula','arroz'];
+
+  List<String> list = [];
+
+  final _formkey = GlobalKey<FormState>();
+
+  final _controler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffA901F7),
-        body: Padding(
+      backgroundColor: const Color(0xffA901F7),
+      body: Stack(children: [
+        Padding(
             padding: const EdgeInsets.all(20),
             child: Column(children: [
               Container(
@@ -26,7 +34,8 @@ List<String> registro = ['Ana Paula','arroz'];
                   'Suas Listagens',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -51,33 +60,40 @@ List<String> registro = ['Ana Paula','arroz'];
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: registro.length,
+                    itemCount: list.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(
-                          '${index + 1} - ${registro[index]}',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xffffffff),
+                          title: Text(
+                            '${index + 1} - ${list[index]}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Color(0xffffffff),
+                            ),
                           ),
-                        ),
-                        trailing: Icon(Icons.delete),
-                        //icon button
-                      );
-
+                          trailing: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.delete_sharp,
+                                color: Colors.white,
+                                size: 40,
+                              ))
+                          //icon button
+                          );
                     }),
               ),
-              Container(
-                alignment: AlignmentDirectional.center,
-                child: ElevatedButton(
+              ElevatedButton(
+                  style: ButtonStyle(elevation: MaterialStateProperty.all(0)),
                   onPressed: () {
-                    final resultado = Navigator.of(context)
-                        .pushNamed('/novatarefa')
+                    Navigator.push(context,
+                         MaterialPageRoute(
+                            builder: (context) => new RegisterTodo()))
                         .then((value) {
-                      if (value != null) {
-                      //setState(() {
-                        // registro.add(value.toString());
-                        //});
+                      if (_formkey.currentState!.validate()) {
+                        setState(){
+                          
+                          addList(value);
+
+                        }
                       }
                     });
                   },
@@ -85,16 +101,34 @@ List<String> registro = ['Ana Paula','arroz'];
                     Icons.add,
                     color: Colors.white,
                     size: 70,
-                  ),
-                ),
-              ),
-            ])));
+                  )),
+            ])),
+        Container(
+          padding: const EdgeInsets.fromLTRB(2, 15, 16, 30),
+          height: 100,
+          width: 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(3),
+              bottomRight: Radius.circular(90),
+              topRight: Radius.circular(3),
+            ),
+          ),
+          child: Image.asset(
+            'assets/images/logo_love.png',
+            fit: BoxFit.contain,
+            height: 50,
+            width: 50,
+          ),
+        ),
+      ]),
+    );
+  }
+
+  void addList(value) {
+    
+    list.add(value);
   }
 }
 
-  
-
-
-
-
-  
