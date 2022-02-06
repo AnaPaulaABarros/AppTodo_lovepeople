@@ -4,14 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ListTodo extends StatelessWidget {
-  ListTodo({Key? key}) : super(key: key);
+class ListTodoPage extends StatelessWidget {
+  ListTodoPage({Key? key}) : super(key: key);
 
   bool hidepassword = true;
 
   get adicionarRegistro => null;
-
-  List<String> list = [];
 
   final _formkey = GlobalKey<FormState>();
 
@@ -21,11 +19,10 @@ class ListTodo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffA901F7),
-      body: Consumer<ListTodoPresenter>(
-        builder: (context, value, child) {
-        if (value.todos.isEmpty)
-              return const Center(child: CircularProgressIndicator());
-         return Stack(children: [
+      body: Consumer<ListTodoPresenter>(builder: (context, value, child) {
+        // if (value.todos.isEmpty)
+        //   return const Center(child: CircularProgressIndicator());
+        return Stack(children: [
           Padding(
               padding: const EdgeInsets.all(20),
               child: Column(children: [
@@ -53,8 +50,8 @@ class ListTodo extends StatelessWidget {
                           color: Color(0xff3101B9),
                         ),
                       ),
-                      hintStyle:
-                          const TextStyle(color: Color(0xff3101B9), fontSize: 20),
+                      hintStyle: const TextStyle(
+                          color: Color(0xff3101B9), fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),
@@ -62,11 +59,11 @@ class ListTodo extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: list.length,
+                      itemCount: value.todos.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                             title: Text(
-                              '${index + 1} - ${list[index]}',
+                              '${index + 1} - ${value.todos[index]}',
                             ),
                             onTap: () {
                               Navigator.push(
@@ -90,16 +87,13 @@ class ListTodo extends StatelessWidget {
                     style: ButtonStyle(elevation: MaterialStateProperty.all(0)),
                     onPressed: () {
                       Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new RegisterTodo()))
-                          .then((value) {
-                        if (_formkey.currentState!.validate()) {
-                          setState() {
-                            addList(value);
-                          }
-                        }
-                      });
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => new RegisterTodo(),
+                        ),
+                      ).then(
+                        (value) {},
+                      );
                     },
                     child: const Icon(
                       Icons.add,
@@ -127,11 +121,7 @@ class ListTodo extends StatelessWidget {
             ),
           ),
         ]);
-        }),
+      }),
     );
-  }
-
-  void addList(value) {
-    list.add(value);
   }
 }

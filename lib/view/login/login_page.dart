@@ -1,18 +1,18 @@
+import 'package:apptodo_lovepeople/model/list_todo.dart';
 import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
-import 'package:apptodo_lovepeople/presenter/user_repository.dart';
+import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _HomeState extends State<Home> {
-  final UserRepository userRepository = UserRepository();
+class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
   final _formkey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -22,10 +22,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
-        body: Consumer<HomePresenter>(
-        builder: (context, _controller, child ){
-          if (_controller.logins.jwt != null)
-              return const Center(child: CircularProgressIndicator());
+        body: Consumer<HomePresenter>(builder: (context, _controller, child) {
+          // Não entendi muito isso aqui. essa logica vc faz no presenter. se tiver diferente de null vc manda pra home.
+          // if (_controller.logins?.jwt != null) {
+          //   return const Center(child: CircularProgressIndicator());
+          // }
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -142,7 +143,12 @@ class _HomeState extends State<Home> {
                           ElevatedButton(
                             onPressed: () {
                               if (_formkey.currentState!.validate()) {
-                                
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ListTodoPage(),
+                                  ),
+                                );
                               }
                               //final resultado = Navigator.of(context)
                               // .push(MaterialPageRoute(
@@ -155,8 +161,8 @@ class _HomeState extends State<Home> {
                               //  });
                             },
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Color(0xff3101B9)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color(0xff3101B9)),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -184,7 +190,6 @@ class _HomeState extends State<Home> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
-                                
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -196,7 +201,6 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                     color: Colors.yellow.shade900,
                                     fontSize: 18,
-                                
                                   ),
                                 ),
                                 onPressed: () {
@@ -214,9 +218,6 @@ class _HomeState extends State<Home> {
               ],
             ),
           );
-        }
-        ));
+        }));
   }
-
-
 }
