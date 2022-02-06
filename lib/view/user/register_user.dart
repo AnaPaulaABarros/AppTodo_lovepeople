@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:apptodo_lovepeople/view/home/home.dart';
+import 'package:apptodo_lovepeople/view/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -151,9 +151,7 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xff3101B9)),
@@ -175,21 +173,25 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
                     children: [
                       const Text(
                         'Já possui cadastro?',
-                        style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
                       ),
-                      
                       FlatButton(
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Home()));
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
                           },
                           child: Text(
                             'Entrar',
                             style: TextStyle(
-                                  color: Colors.yellow.shade900,
-                                  fontSize: 18,),
+                              color: Colors.yellow.shade900,
+                              fontSize: 18,
+                            ),
                           )),
                     ],
                   ),

@@ -1,20 +1,15 @@
-
-
 import 'package:apptodo_lovepeople/model/Api/api_todo.dart';
 import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:flutter/material.dart';
 
-class RegisterTodoPresenter extends ChangeNotifier{
-
+class RegisterTodoPresenter extends ChangeNotifier {
   final api = TodoApi();
 
-  RegisterTodo registro = '' as RegisterTodo;
+  RegisterTodo? registro;
 
-  Future<void> obterTodo() async {
+  void obterTodo() async {
+    // registro = api.registerTodo as RegisterTodo;
 
-    registro = api.registerTodo as RegisterTodo; 
-    
-     notifyListeners();
+    notifyListeners();
   }
-
 }
