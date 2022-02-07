@@ -4,6 +4,7 @@ import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
 import 'package:apptodo_lovepeople/presenter/register_login_presenter.dart';
 import 'package:apptodo_lovepeople/presenter/register_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
+import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
 import 'package:flutter/foundation.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home:  RegisterUserlogin(),
+        home:  RegistrationCompleted(),
       ),
     );
   }

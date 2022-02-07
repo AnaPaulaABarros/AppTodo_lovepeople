@@ -32,7 +32,7 @@ context.read<RegisterLoginPresenter>().obterRegistro();
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
-        body: Consumer<HomePresenter>(
+        body: Consumer<RegisterLoginPresenter>(
           builder: (context, controller, child) {
           return ListView(padding: const EdgeInsets.all(20), children: [
             const SizedBox(
@@ -164,19 +164,16 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // if (_formkey.currentState!.validate() == true){
-                          // controller.registro(
-                          //   _checkController,
-                          // _emailController,
-                         //  _nomeController,
-                         //  _senhaController, (){
-                         //    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ListTodo()));
-                        //   });
+                       // if (_formkey.currentState!.validate() == true){
+              // controller.registro(_emailController,_nomeController,_senhaController (){
+              
+                          //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ListTodo()));
+                      //  });
                              
-                         ////  });
-                             // }
-                        
-                      },
+                       //  }
+
+                             },
+                                              
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Color(0xff3101B9)),

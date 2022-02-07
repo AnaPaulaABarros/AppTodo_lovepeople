@@ -62,7 +62,7 @@ class TodoApi {
 
   Future registersTodo(String titulo, String descricao, String cor) async {
     var url = Uri.parse('https://todo-lovepeople.herokuapp.com/todos');
-    var response = await http.get(
+    var response = await http.post(
       url,
       headers: {
         "Authorization": "Bearer $token",

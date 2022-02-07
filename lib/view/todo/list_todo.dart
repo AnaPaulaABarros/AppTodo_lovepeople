@@ -1,7 +1,6 @@
 
 import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,17 +11,19 @@ class ListTodo extends StatelessWidget {
 
   get adicionarRegistro => null;
 
-  List<String> list = ['lavar louça', 'tomar café'];
+  List<ListTodo> todos = [];
 
   final _formkey = GlobalKey<FormState>();
 
   final _controler = TextEditingController();
 
-//@override
- // void didChangeDependencies() {
-  //  context.read<ListTodoPresenter>().obterListTodo();
-  //  super.didChangeDependencies();
- // } ERRO NO READ - COMO SE NÃO TIVESSE O PROVIDER
+  String filterText = '';
+
+/*@override
+void didChangeDependencies() {
+   context.read<ListTodoPresenter>().obterListTodo();
+   super.didChangeDependencies();
+ }*/
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,12 @@ class ListTodo extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: TextFormField(
+                  child: TextField(
+                   // onChanged: (text) {
+                 // setState((){
+                     // filterText = text;
+                       //    });
+                   // },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -66,11 +72,11 @@ class ListTodo extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: list.length,
+                      itemCount: todos.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                             title: Text(
-                              '${index + 1} - ${list[index]}',
+                              '${index + 1} - ${todos[index]}',
                             ),
                             onTap: () {},
                             trailing: IconButton(
@@ -106,9 +112,9 @@ class ListTodo extends StatelessWidget {
                           style: ButtonStyle(
                               elevation: MaterialStateProperty.all(0)),
                           onPressed: () {
-                            final resultado = Navigator.of(context)
+                            Navigator.of(context)
                                 .push(MaterialPageRoute(
-                                    builder: (context) => const RegisterTodos()))
+                                    builder: (context) => RegisterTodos()))
                                 .then((value) {
                               if (value != null) {}
                             });
@@ -145,6 +151,6 @@ class ListTodo extends StatelessWidget {
   }
 
   void addList(value) {
-    list.add(value);
+    todos.add(value);
   }
 }
