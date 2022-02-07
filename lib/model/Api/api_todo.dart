@@ -7,9 +7,14 @@ import 'package:apptodo_lovepeople/model/register_user.dart';
 import 'package:http/http.dart' as http;
 
 class TodoApi {
+  
   String token = '';
 
-  void _login(String email, String senha) async {
+  bool isLoading = false;
+
+  get deleteTodo => null;
+
+  Future login(String email, String senha) async {
     var url = Uri.parse('https:todo-lovepeople.herokuapp.com/auth/local');
     var response = await http.post(
       url,
@@ -26,7 +31,7 @@ class TodoApi {
     }
   }
 
-  void _register(String email, String nome, String senha) async {
+  Future registers(String email, String nome, String senha) async {
     var url =
         Uri.parse('https://todo-lovepeople.herokuapp.com/auth/local/register');
     var response = await http.post(url, body: {
@@ -41,7 +46,7 @@ class TodoApi {
     }
   }
 
-  void _listTodo() async {
+  Future listTodo() async {
     var url = Uri.parse('https://todo-lovepeople.herokuapp.com/todos');
     var response = await http.get(
       url,
@@ -55,7 +60,7 @@ class TodoApi {
     }
   }
 
-  void _registerTodo(String titulo, String descricao, String cor) async {
+  Future registersTodo(String titulo, String descricao, String cor) async {
     var url = Uri.parse('https://todo-lovepeople.herokuapp.com/todos');
     var response = await http.get(
       url,
@@ -68,7 +73,7 @@ class TodoApi {
       RegisterTodo resp = RegisterTodo.fromJson(json);
     }
 
-    void _deleteTodo(String titulo, String descricao, String cor) async {
+    void deleteTodo(String titulo, String descricao, String cor) async {
       var url =
           Uri.parse('https://todo-lovepeople.herokuapp.com/todos/{idTodo}');
 

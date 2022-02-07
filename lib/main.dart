@@ -1,16 +1,15 @@
-import 'package:apptodo_lovepeople/model/Api/api_todo.dart';
+import 'package:apptodo_lovepeople/model/register_user.dart';
 import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
 import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
+import 'package:apptodo_lovepeople/presenter/register_login_presenter.dart';
 import 'package:apptodo_lovepeople/presenter/register_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
-import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
-import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
+import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'view/user/register_user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomePresenter()),
         ChangeNotifierProvider(create: (_) => ListTodoPresenter()),
         ChangeNotifierProvider(create: (_) => RegisterTodoPresenter()),
+        ChangeNotifierProvider(create: (_) => RegisterLoginPresenter()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home: LoginPage(),
+        home:  RegisterUserlogin(),
       ),
     );
   }

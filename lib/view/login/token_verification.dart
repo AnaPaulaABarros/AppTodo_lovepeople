@@ -1,3 +1,4 @@
+import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +28,7 @@ class _TokenVerificationState extends State<TokenVerification> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const RegisterUserlogin(),
+              builder: (context) => ListTodo(),
             ),
           );
         }

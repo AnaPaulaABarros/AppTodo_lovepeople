@@ -1,4 +1,3 @@
-import 'package:apptodo_lovepeople/model/list_todo.dart';
 import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:apptodo_lovepeople/view/user/register_user.dart';
@@ -19,14 +18,16 @@ class _LoginPageState extends State<LoginPage> {
   final _passowrdController = TextEditingController();
 
   @override
+  void didChangeDependencies() {
+    context.read<HomePresenter>().obterLogin();
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
-        body: Consumer<HomePresenter>(builder: (context, _controller, child) {
-          // Não entendi muito isso aqui. essa logica vc faz no presenter. se tiver diferente de null vc manda pra home.
-          // if (_controller.logins?.jwt != null) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
+        body: Consumer<HomePresenter>(builder: (context, controller, child) {
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -146,19 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ListTodoPage(),
+                                    builder: (context) => ListTodo(),
                                   ),
                                 );
                               }
-                              //final resultado = Navigator.of(context)
-                              // .push(MaterialPageRoute(
-                              //   builder: (context) => RegisterTodo()))
-                              // .then((value) {
-                              //  if (_formkey.currentState!.validate()) {
-                              //bool loginCerto = await RegisterUser(jwt: ID);
-                              //   setState(() {});
-                              // }
-                              //  });
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
@@ -206,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (context) =>
+                                          builder: (_) =>
                                               RegisterUserlogin()));
                                 },
                               ),

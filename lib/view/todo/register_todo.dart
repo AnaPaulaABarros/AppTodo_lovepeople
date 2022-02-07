@@ -1,29 +1,38 @@
-import 'dart:ui';
+import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:apptodo_lovepeople/presenter/register_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RegisterTodo extends StatefulWidget {
-  RegisterTodo({Key? key}) : super(key: key);
+class RegisterTodos extends StatefulWidget {
+  const RegisterTodos({Key? key, String? title, description, color})
+      : super(key: key);
 
   @override
-  State<RegisterTodo> createState() => _RegisterTodoState();
+  State<RegisterTodos> createState() => _RegisterTodoState();
 }
 
-class _RegisterTodoState extends State<RegisterTodo> {
+class _RegisterTodoState extends State<RegisterTodos> {
   final _formkey = GlobalKey<FormState>();
-  final _controler = TextEditingController();
+  final _controlerAssignment = TextEditingController();
+  final _controlerTitle = TextEditingController();
 
   String cor = '';
   var value;
+
+
+  @override
+  void didChangeDependencies() {
+    context.read<RegisterTodoPresenter>().obterTodo();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFA901F7),
       body: Consumer<RegisterTodoPresenter>(
-        builder: (context, value, child) {
+        builder: (context, controller, child) {
           return Stack(
             children: [
               Form(
@@ -53,6 +62,12 @@ class _RegisterTodoState extends State<RegisterTodo> {
                                   const EdgeInsets.fromLTRB(40, 40, 40, 50)),
                         ),
                         TextFormField(
+                          controller: _controlerTitle,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Preenchimento obrigatorio!';
+                            }
+                          },
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                               color: Color(0xff3101B9),
@@ -85,7 +100,7 @@ class _RegisterTodoState extends State<RegisterTodo> {
                               keyboardType: TextInputType.multiline,
                               maxLines: 50,
                               textAlign: TextAlign.left,
-                              controller: _controler,
+                              controller: _controlerAssignment,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Preenchimento obrigatorio!';
@@ -169,8 +184,7 @@ class _RegisterTodoState extends State<RegisterTodo> {
                                     elevation: MaterialStateProperty.all(0),
                                   ),
                                   onPressed: () {
-                                    (Navigator.of(context)
-                                        .pop(_controler.text));
+                                    (Navigator.of(context).pop(value));
                                     if (_formkey.currentState!.validate()) {}
                                   },
                                   child: const Icon(
@@ -182,18 +196,22 @@ class _RegisterTodoState extends State<RegisterTodo> {
                                 width: 80,
                               ),
                               ElevatedButton(
-                                style: ButtonStyle(
-                                    elevation: MaterialStateProperty.all(0)),
-                                onPressed: () {
-                                  (Navigator.of(context).pop(_controler.text));
-                                  if (_formkey.currentState!.validate()) {}
-                                },
-                                child: const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 70,
-                                ),
-                              ),
+                                  style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(0)),
+                                  onPressed: () {
+                                    String title = _controlerTitle.text;
+                                    String assignment = 
+                                        _controlerAssignment.text;
+                                    if (title.isNotEmpty &&
+                                        assignment.isNotEmpty) {
+                                        Navigator.of(context).pop(_controlerAssignment.text);                               
+                                    }
+                                  },
+                                  child: const Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 70,
+                                  ))
                             ],
                           ),
                         ),
@@ -226,3 +244,4 @@ class _RegisterTodoState extends State<RegisterTodo> {
     );
   }
 }
+

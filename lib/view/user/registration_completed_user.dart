@@ -1,3 +1,5 @@
+import 'package:apptodo_lovepeople/model/register_Todo.dart';
+import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,19 +37,14 @@ class RegistrationCompleted extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onLongPress: () {},
-                    //  onPressed: () {
-                    //   final resultado = Navigator.of(context)
-                    //      .push(new MaterialPageRoute(
-                    //         builder: (context) =>  RegisterTodo()))
-                    //     .then((value) {
-                    //   if (value != null) {
-                    //       setState(() {
-                    //       addList(value);
-                    //     });
-                    // }
-                    // });
-                    // },
+                    onPressed: () {
+
+                      Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ListTodo()));
+                    },
+                    
                     child: const Text(
                       'Começar',
                       style:   TextStyle(
@@ -69,7 +66,7 @@ class RegistrationCompleted extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                  
                   ),
                 ],
               ),
