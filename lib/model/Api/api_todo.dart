@@ -1,21 +1,21 @@
 import 'dart:convert';
 import 'package:apptodo_lovepeople/model/Delete_Todo.dart';
-import 'package:apptodo_lovepeople/model/List_Todo.dart';
+import 'package:apptodo_lovepeople/model/list_todo.dart';
 import 'package:apptodo_lovepeople/model/login_user.dart';
 import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:apptodo_lovepeople/model/register_user.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoApi {
-  
   String token = '';
 
   bool isLoading = false;
 
   get deleteTodo => null;
 
-  Future login(String email, String senha) async {
-    var url = Uri.parse('https:todo-lovepeople.herokuapp.com/auth/local');
+  Future<LoginUser?> login(String email, String senha) async {
+    var url = Uri.parse('https://todo-lovepeople.herokuapp.com/auth/local');
     var response = await http.post(
       url,
       body: {
@@ -28,6 +28,7 @@ class TodoApi {
       Map<String, dynamic> json = jsonDecode(response.body);
       LoginUser resp = LoginUser.fromJson(json);
       token = resp.jwt!;
+      return resp;
     }
   }
 
@@ -46,28 +47,38 @@ class TodoApi {
     }
   }
 
-  Future listTodo() async {
+  Future<List<ListTodo>> listTodo() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? jwt = sharedPreferences.getString('jwt');
     var url = Uri.parse('https://todo-lovepeople.herokuapp.com/todos');
     var response = await http.get(
       url,
       headers: {
-        "Authorization": "Bearer $token",
+        "Authorization": "Bearer $jwt",
       },
     );
     if (response.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      ListTodo resp = ListTodo.fromJson(json);
+      List json = jsonDecode(response.body);
+
+      return json.map<ListTodo>((value) {
+        return ListTodo.fromJson(value);
+      }).toList();
+    } else {
+      return [];
     }
   }
 
   Future registersTodo(String titulo, String descricao, String cor) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? jwt = sharedPreferences.getString('jwt');
     var url = Uri.parse('https://todo-lovepeople.herokuapp.com/todos');
-    var response = await http.post(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
+    var response = await http.post(url, headers: {
+      "Authorization": "Bearer $jwt",
+    }, body: {
+      "title": titulo,
+      "description": descricao,
+      "color": cor,
+    });
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
       RegisterTodo resp = RegisterTodo.fromJson(json);

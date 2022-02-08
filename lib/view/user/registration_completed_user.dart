@@ -42,7 +42,7 @@ class RegistrationCompleted extends StatelessWidget {
                       Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ListTodo()));
+                                              ListTodoPage()));
                     },
                     
                     child: const Text(

@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home:  RegistrationCompleted(),
+        home:  LoginPage(),
       ),
     );
   }

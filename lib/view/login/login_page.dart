@@ -19,7 +19,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void didChangeDependencies() {
-    context.read<HomePresenter>().obterLogin();
+    context.read<HomePresenter>().tokenCheck().then((value) {
+      if (value) {
+        goHome(context);
+      }
+    });
     super.didChangeDependencies();
   }
 
@@ -106,49 +110,62 @@ class _LoginPageState extends State<LoginPage> {
                             height: 20,
                           ),
                           TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty ||
-                                    value.trim().length == null) {
-                                  return 'Senha inválida';
-                                }
-                              },
-                              controller: _passowrdController,
-                              obscureText: _isObscure,
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _isObscure
-                                        ? Icons.remove_red_eye_outlined
-                                        : Icons.remove_red_eye_sharp,
-                                    color: const Color(0xff3101B9),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  },
+                            validator: (value) {
+                              if (value!.isEmpty ||
+                                  value.trim().length == null) {
+                                return 'Senha inválida';
+                              }
+                            },
+                            controller: _passowrdController,
+                            obscureText: _isObscure,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isObscure
+                                      ? Icons.remove_red_eye_outlined
+                                      : Icons.remove_red_eye_sharp,
+                                  color: const Color(0xff3101B9),
                                 ),
-                                hintText: ('Senha'),
-                                hintStyle:
-                                    const TextStyle(color: Color(0xff3101B9)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide:
-                                        const BorderSide(color: Colors.white)),
-                              )),
+                                onPressed: () {
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                },
+                              ),
+                              hintText: ('Senha'),
+                              hintStyle:
+                                  const TextStyle(color: Color(0xff3101B9)),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
+                              ),
+                            ),
+                          ),
                           const SizedBox(
                             height: 25,
                           ),
                           ElevatedButton(
                             onPressed: () {
                               if (_formkey.currentState!.validate()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ListTodo(),
-                                  ),
+                                controller.login(
+                                  _emailController.text,
+                                  _passowrdController.text,
+                                  () {
+                                    goHome(context);
+                                  },
+                                  () {
+                                    const snackBar = SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content:
+                                          Text('Usuário ou senhas inválidos'),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
                                 );
                               }
                             },
@@ -198,8 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (_) =>
-                                              RegisterUserlogin()));
+                                          builder: (_) => RegisterUserlogin()));
                                 },
                               ),
                             ],
@@ -211,5 +227,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         }));
+  }
+
+  void goHome(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ListTodoPage(),
+      ),
+    );
   }
 }

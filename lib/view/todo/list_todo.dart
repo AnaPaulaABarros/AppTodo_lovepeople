@@ -1,17 +1,20 @@
-
+import 'package:apptodo_lovepeople/model/list_todo.dart';
 import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ListTodo extends StatelessWidget {
-  ListTodo({Key? key}) : super(key: key);
+class ListTodoPage extends StatefulWidget {
+  ListTodoPage({Key? key}) : super(key: key);
 
+  @override
+  State<ListTodoPage> createState() => _ListTodoPageState();
+}
+
+class _ListTodoPageState extends State<ListTodoPage> {
   bool hidepassword = true;
 
   get adicionarRegistro => null;
-
-  List<ListTodo> todos = [];
 
   final _formkey = GlobalKey<FormState>();
 
@@ -19,11 +22,11 @@ class ListTodo extends StatelessWidget {
 
   String filterText = '';
 
-/*@override
-void didChangeDependencies() {
-   context.read<ListTodoPresenter>().obterListTodo();
-   super.didChangeDependencies();
- }*/
+  @override
+  void didChangeDependencies() {
+    context.read<ListTodoPresenter>().obterListTodo();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +51,11 @@ void didChangeDependencies() {
                 ),
                 Center(
                   child: TextField(
-                   // onChanged: (text) {
-                 // setState((){
-                     // filterText = text;
-                       //    });
-                   // },
+                    // onChanged: (text) {
+                    // setState((){
+                    // filterText = text;
+                    //    });
+                    // },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -72,59 +75,59 @@ void didChangeDependencies() {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: todos.length,
+                      itemCount: controller.todos.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                             title: Text(
-                              '${index + 1} - ${todos[index]}',
+                              '${index + 1} - ${controller.todos[index].title}',
                             ),
                             onTap: () {},
                             trailing: IconButton(
                               onPressed: () => showDialog(
                                 context: context,
-                                builder: (context) => 
-                                 AlertDialog (
-                                  title: const Text('Deletar'),
-                                  content:
-                                      const Text('Deseja deletar este item?'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'Cancel'),
-                                      child: const Text("Cancel"),
-                                    ),
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ]),),
+                                builder: (context) => AlertDialog(
+                                    title: const Text('Deletar'),
+                                    content:
+                                        const Text('Deseja deletar este item?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text("Cancel"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ]),
+                              ),
                               icon: const Icon(
                                 Icons.delete_sharp,
                                 color: Colors.white,
                                 size: 40,
                               ),
                             ));
-                        
                       }),
                 ),
                 ElevatedButton(
-                          style: ButtonStyle(
-                              elevation: MaterialStateProperty.all(0)),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                    builder: (context) => RegisterTodos()))
-                                .then((value) {
-                              if (value != null) {}
-                            });
-                          },
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 70,
-                          ),
-                        ),
+                  style: ButtonStyle(elevation: MaterialStateProperty.all(0)),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => RegisterTodos()))
+                        .then((value) {
+                      if (value) {
+                        controller.obterListTodo();
+                      }
+                    });
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 70,
+                  ),
+                ),
               ])),
           Container(
             padding: const EdgeInsets.fromLTRB(2, 15, 16, 30),
@@ -148,9 +151,5 @@ void didChangeDependencies() {
         ]);
       }),
     );
-  }
-
-  void addList(value) {
-    todos.add(value);
   }
 }

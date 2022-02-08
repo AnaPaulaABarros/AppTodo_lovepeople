@@ -18,14 +18,8 @@ class _RegisterTodoState extends State<RegisterTodos> {
   final _controlerTitle = TextEditingController();
 
   String cor = '';
+
   var value;
-
-
-  @override
-  void didChangeDependencies() {
-    context.read<RegisterTodoPresenter>().obterTodo();
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,11 +194,30 @@ class _RegisterTodoState extends State<RegisterTodos> {
                                       elevation: MaterialStateProperty.all(0)),
                                   onPressed: () {
                                     String title = _controlerTitle.text;
-                                    String assignment = 
+                                    String assignment =
                                         _controlerAssignment.text;
                                     if (title.isNotEmpty &&
                                         assignment.isNotEmpty) {
-                                        Navigator.of(context).pop(_controlerAssignment.text);                               
+                                      controller.registrarTodo(
+                                        title,
+                                        assignment,
+                                        cor,
+                                        () {
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        () {
+                                          const snackBar = SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text(
+                                                'Sua tarefa não foi cadastrada'),
+                                          );
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        },
+                                      );
+                                      // Navigator.of(context)
+                                      //.pop(_controlerAssignment.text);
                                     }
                                   },
                                   child: const Icon(
@@ -244,4 +257,3 @@ class _RegisterTodoState extends State<RegisterTodos> {
     );
   }
 }
-
