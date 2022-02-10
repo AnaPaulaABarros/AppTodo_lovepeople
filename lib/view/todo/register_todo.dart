@@ -17,7 +17,8 @@ class _RegisterTodoState extends State<RegisterTodos> {
   final _controlerAssignment = TextEditingController();
   final _controlerTitle = TextEditingController();
 
-  String cor = '';
+  late String _cor = '';
+  var _cores = ['FFF2CC', 'FFD9F0', 'E8C5FF', 'CAFBFF', 'E3FFE6'];
 
   var value;
 
@@ -123,47 +124,11 @@ class _RegisterTodoState extends State<RegisterTodos> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FloatingActionButton(
-                              heroTag: 'color1',
-                              onPressed: () {},
-                              backgroundColor: const Color(0xFFFFF2CC),
-                            ),
-                            const SizedBox(
-                              width: 14,
-                            ),
-                            FloatingActionButton(
-                              heroTag: 'color2',
-                              onPressed: () {},
-                              backgroundColor: const Color(0xFFFFD9F0),
-                            ),
-                            const SizedBox(
-                              width: 14,
-                            ),
-                            FloatingActionButton(
-                              heroTag: 'color3',
-                              onPressed: () {},
-                              backgroundColor: const Color(0xFFE8C5FF),
-                            ),
-                            const SizedBox(
-                              width: 14,
-                            ),
-                            FloatingActionButton(
-                              heroTag: 'color4',
-                              onPressed: () {},
-                              backgroundColor: const Color(0xFFCAFBFF),
-                            ),
-                            const SizedBox(
-                              width: 14,
-                            ),
-                            FloatingActionButton(
-                              heroTag: 'color5',
-                              onPressed: () {},
-                              backgroundColor: const Color(0xFFE3FFE6),
-                            ),
-                          ],
+                        Container(
+                          alignment: AlignmentDirectional.center,
+                          child: mapaDeCores(),
+                          margin: EdgeInsets.only(top: 10, left: 40, right: 40),
+                          height: 40,
                         ),
                         const SizedBox(
                           height: 15,
@@ -201,7 +166,7 @@ class _RegisterTodoState extends State<RegisterTodos> {
                                       controller.registrarTodo(
                                         title,
                                         assignment,
-                                        cor,
+                                        _cor,
                                         () {
                                           Navigator.of(context).pop(true);
                                         },
@@ -254,6 +219,33 @@ class _RegisterTodoState extends State<RegisterTodos> {
           );
         },
       ),
+    );
+  }
+
+  ListView mapaDeCores() {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: _cores.length,
+      itemBuilder: (context, index) {
+        final colorButton = '0xFF${_cores[index]}';
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(),
+            primary: Color(
+              int.parse(colorButton),
+            ),
+            elevation: _cor == _cores[index] ? 10 : 0,
+          ),
+          onPressed: () {
+            setState(() {
+              _cor = _cores[index];
+            });
+          },
+          child: const SizedBox(
+            width: 20,
+          ),
+        );
+      },
     );
   }
 }

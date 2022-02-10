@@ -1,4 +1,3 @@
-import 'package:apptodo_lovepeople/model/list_todo.dart';
 import 'package:apptodo_lovepeople/model/login_user.dart';
 import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
@@ -64,11 +63,6 @@ class _ListTodoPageState extends State<ListTodoPage> {
                 ),
                 Center(
                   child: TextField(
-                    // onChanged: (text) {
-                    // setState((){
-                    // filterText = text;
-                    //    });
-                    // },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -90,41 +84,9 @@ class _ListTodoPageState extends State<ListTodoPage> {
                   child: ListView.builder(
                       itemCount: controller.todos.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                            title: Text(
-                              '${index + 1} - ${controller.todos[index].title}',
-                              style: const TextStyle(
-                                  color: Color(0xFF3101B9),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            onTap: () {},
-                            trailing: IconButton(
-                              onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                    title: const Text('Deletar'),
-                                    content:
-                                        const Text('Deseja deletar este item?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text("Cancel"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ]),
-                              ),
-                              icon: const Icon(
-                                Icons.delete_sharp,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                            ));
+                        final todoNovo = controller.todos[index];
+                        return _tarefas(
+                            controller, todoNovo); // dando erro nesta parte
                       }),
                 ),
                 ElevatedButton(
@@ -132,7 +94,7 @@ class _ListTodoPageState extends State<ListTodoPage> {
                   onPressed: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(
-                            builder: (context) => RegisterTodos()))
+                            builder: (context) => const RegisterTodos()))
                         .then((value) {
                       if (value) {
                         controller.obterListTodo();
@@ -171,16 +133,73 @@ class _ListTodoPageState extends State<ListTodoPage> {
   }
 }
 
-Widget _tarefas(ListTodoPresenter controller, Todos todo) {
+Widget _tarefas(ListTodoPresenter controller, Todos todoNovo) {
   return Container(
     height: 120,
     width: 420,
     margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: setColor(todoNovo.color),
       border: Border.all(width: 2, color: Colors.white),
       borderRadius: BorderRadius.circular(10),
     ),
+    child: InkWell(
+      onTap: () {},
+      child: Row(children: [
+        Column(
+          children: [
+            Text(
+              todoNovo.title ?? "",
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              todoNovo.description ?? "",
+              style: const TextStyle(fontSize: 15, color: Color(0xFF3101B9)),
+            ),
+          ],
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        IconButton(
+          onPressed: () {}, //=> showDialog(
+          //   context: context, //NÃO SEI PQ ESTÁ DANDO ESTE ERRO  NO CONTEXTO
+          //   builder: (context) => AlertDialog(
+          //       title: const Text('Deletar'),
+          //       content: const Text('Deseja deletar este item?'),
+          //       actions: <Widget>[
+          //         TextButton(
+          //           onPressed: () => Navigator.pop(context, 'Cancel'),
+          //           child: const Text("Cancel"),
+          //         ),
+          //         TextButton(
+          //           onPressed: () {
+          //            // controller.delete; NÃO CONSIGO CHAMAR O DELETE
+          //             Navigator.of(context).pop();
+          //           },
+          //           child: const Text('OK'),
+          //         ),
+          //       ]),
+          //),
+          icon: const Icon(
+            Icons.delete_sharp,
+            color: Color(0xFF3101B9),
+            size: 40,
+          ),
+        ),
+      ]),
+    ),
   );
+}
+
+Color setColor(String? color) {
+  try {
+    return Color(int.parse('0xFF${color?.replaceAll('#', '')}'));
+  } catch (e) {
+    return Colors.transparent;
+  }
 }
