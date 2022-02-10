@@ -1,17 +1,19 @@
 import 'package:apptodo_lovepeople/model/Api/api_todo.dart';
 import 'package:apptodo_lovepeople/model/login_user.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
+import 'package:apptodo_lovepeople/model/repository/repository_user.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePresenter extends ChangeNotifier {
+import '../model/register_user.dart';
+
+class RegisterLoginPresenter extends ChangeNotifier {
   final api = TodoApi();
 
-  LoginUser? logins;
+  RegisterUser? cadastros;
 
-  void login(
-      String email, String senha, VoidCallback sucesso, VoidCallback falha) {
-    api.login(email, senha).then((value) async {
+  void cadastro(String email, String senha, String nome, VoidCallback sucesso,
+      VoidCallback falha) {
+    api.registersUser(email, senha, nome).then((value) async {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('jwt', value!.jwt!);
