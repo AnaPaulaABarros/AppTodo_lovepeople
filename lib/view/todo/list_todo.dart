@@ -1,4 +1,5 @@
 import 'package:apptodo_lovepeople/model/list_todo.dart';
+import 'package:apptodo_lovepeople/model/login_user.dart';
 import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
 import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,18 @@ class _ListTodoPageState extends State<ListTodoPage> {
       backgroundColor: const Color(0xffA901F7),
       body: Consumer<ListTodoPresenter>(builder: (context, controller, child) {
         return Stack(children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            alignment: AlignmentDirectional.topEnd,
+            child: TextButton(
+                onPressed: () {},
+                child: const Text('SAIR',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold))),
+          ),
           Padding(
               padding: const EdgeInsets.all(20),
               child: Column(children: [
@@ -80,6 +93,10 @@ class _ListTodoPageState extends State<ListTodoPage> {
                         return ListTile(
                             title: Text(
                               '${index + 1} - ${controller.todos[index].title}',
+                              style: const TextStyle(
+                                  color: Color(0xFF3101B9),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
                             ),
                             onTap: () {},
                             trailing: IconButton(
@@ -152,4 +169,18 @@ class _ListTodoPageState extends State<ListTodoPage> {
       }),
     );
   }
+}
+
+Widget _tarefas(ListTodoPresenter controller, Todos todo) {
+  return Container(
+    height: 120,
+    width: 420,
+    margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(width: 2, color: Colors.white),
+      borderRadius: BorderRadius.circular(10),
+    ),
+  );
 }

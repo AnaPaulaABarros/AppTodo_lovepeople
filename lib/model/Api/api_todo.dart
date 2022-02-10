@@ -32,7 +32,8 @@ class TodoApi {
     }
   }
 
-  Future registers(String email, String nome, String senha) async {
+  Future<RegisterUser?> registersUser(
+      String email, String nome, String senha) async {
     var url =
         Uri.parse('https://todo-lovepeople.herokuapp.com/auth/local/register');
     var response = await http.post(url, body: {
@@ -44,6 +45,7 @@ class TodoApi {
       Map<String, dynamic> json = jsonDecode(response.body);
       RegisterUser resp = RegisterUser.fromJson(json);
       token = resp.jwt!;
+      return resp;
     }
   }
 

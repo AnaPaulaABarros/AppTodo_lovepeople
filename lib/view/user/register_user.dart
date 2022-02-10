@@ -21,19 +21,23 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
   final _nomeController = TextEditingController();
   final _senhaController = TextEditingController();
   final _checkController = TextEditingController();
- 
- @override
+
+  @override
   void didChangeDependencies() {
-context.read<RegisterLoginPresenter>().obterRegistro();
+    context.read<RegisterLoginPresenter>().tokenCheck().then((value) {
+      if (value) {
+        goCadastro(context);
+      }
+    });
     super.didChangeDependencies();
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
         body: Consumer<RegisterLoginPresenter>(
-          builder: (context, controller, child) {
+            builder: (context, controller, child) {
           return ListView(padding: const EdgeInsets.all(20), children: [
             const SizedBox(
               height: 100,
@@ -42,7 +46,9 @@ context.read<RegisterLoginPresenter>().obterRegistro();
               'Vamos começar!',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 30, color: Colors.white, fontWeight: FontWeight.w600),
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 80,
@@ -67,7 +73,8 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.white)),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
                         )),
                     const SizedBox(
                       height: 15,
@@ -89,7 +96,8 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.white)),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
                         )),
                     const SizedBox(
                       height: 15,
@@ -123,7 +131,8 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.white)),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
                         )),
                     const SizedBox(
                       height: 15,
@@ -157,30 +166,44 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.white)),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
                         )),
                     const SizedBox(
                       height: 30,
                     ),
                     ElevatedButton(
                       onPressed: () {
-                       // if (_formkey.currentState!.validate() == true){
-              // controller.registro(_emailController,_nomeController,_senhaController (){
-              
-                          //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ListTodo()));
-                      //  });
-                             
-                       //  }
+                        if (_formkey.currentState!.validate()) {
+                          controller.cadastro(
+                            _emailController.text,
+                            _nomeController.text,
+                            _senhaController.text,
+                            () {
+                              goCadastro(context);
+                            },
+                            () {
+                              const snackBar = SnackBar(
+                                backgroundColor:
+                                    Color.fromARGB(251, 143, 39, 32),
+                                content: Text(
+                                    'Erro ao processar sua solicitação! Tente novamente.'),
+                              );
 
-                             },
-                                              
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            },
+                          );
+                        }
+                      },
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Color(0xff3101B9)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              side: const BorderSide(
-                                  width: 2, color: Colors.white)))),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  side: const BorderSide(
+                                      width: 2, color: Colors.white)))),
                       child: const Text(
                         'Cadastrar',
                         style: TextStyle(
@@ -195,36 +218,38 @@ context.read<RegisterLoginPresenter>().obterRegistro();
                       children: [
                         const Text(
                           'Já possui cadastro?',
-                          style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400),
                         ),
-                        
                         FlatButton(
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              LoginPage()));
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
                             },
                             child: Text(
                               'Entrar',
                               style: TextStyle(
-                                    color: Colors.yellow.shade900,
-                                    fontSize: 18,),
+                                color: Colors.yellow.shade900,
+                                fontSize: 18,
+                              ),
                             )),
                       ],
                     ),
                   ],
                 )),
           ]);
-          }));
+        }));
+  }
+
+  void goCadastro(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
+    );
   }
 }
-
-//alreadyRegistered(context) {
- // Navigator.of(context).push(
-    //  MaterialPageRoute(
-      //  builder: (context) => const Home(),
-    //  ),
-  //  );
- // }
-
