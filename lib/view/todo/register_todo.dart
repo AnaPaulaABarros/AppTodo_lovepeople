@@ -1,6 +1,4 @@
-import 'package:apptodo_lovepeople/model/register_Todo.dart';
-import 'package:apptodo_lovepeople/presenter/register_todo_presenter.dart';
-import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
+import 'package:apptodo_lovepeople/presenter/register_todo_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +16,7 @@ class _RegisterTodoState extends State<RegisterTodos> {
   final _controlerTitle = TextEditingController();
 
   late String _cor = '';
-  var _cores = ['FFF2CC', 'FFD9F0', 'E8C5FF', 'CAFBFF', 'E3FFE6'];
+  final _cores = ['FFF2CC', 'FFD9F0', 'E8C5FF', 'CAFBFF', 'E3FFE6'];
 
   var value;
 
@@ -26,7 +24,7 @@ class _RegisterTodoState extends State<RegisterTodos> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFA901F7),
-      body: Consumer<RegisterTodoPresenter>(
+      body: Consumer<RegisterTodoController>(
         builder: (context, controller, child) {
           return Stack(
             children: [
@@ -100,6 +98,7 @@ class _RegisterTodoState extends State<RegisterTodos> {
                                 if (value!.isEmpty) {
                                   return 'Preenchimento obrigatorio!';
                                 }
+                                return null;
                               },
                               decoration: InputDecoration(
                                 hintText:
@@ -127,7 +126,8 @@ class _RegisterTodoState extends State<RegisterTodos> {
                         Container(
                           alignment: AlignmentDirectional.center,
                           child: mapaDeCores(),
-                          margin: EdgeInsets.only(top: 10, left: 40, right: 40),
+                          margin: const EdgeInsets.only(
+                              top: 10, left: 40, right: 40),
                           height: 40,
                         ),
                         const SizedBox(
@@ -181,8 +181,6 @@ class _RegisterTodoState extends State<RegisterTodos> {
                                               .showSnackBar(snackBar);
                                         },
                                       );
-                                      // Navigator.of(context)
-                                      //.pop(_controlerAssignment.text);
                                     }
                                   },
                                   child: const Icon(

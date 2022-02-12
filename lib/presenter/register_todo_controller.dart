@@ -1,8 +1,7 @@
 import 'package:apptodo_lovepeople/model/Api/api_todo.dart';
-import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:flutter/material.dart';
 
-class RegisterTodoPresenter extends ChangeNotifier {
+class RegisterTodoController extends ChangeNotifier {
   final api = TodoApi();
 
   void registrarTodo(String titulo, String descricao, String cor,

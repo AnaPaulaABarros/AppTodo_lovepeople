@@ -1,15 +1,9 @@
-import 'package:apptodo_lovepeople/model/register_user.dart';
-import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
-import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
-import 'package:apptodo_lovepeople/presenter/register_login_presenter.dart';
-import 'package:apptodo_lovepeople/presenter/register_todo_presenter.dart';
+import 'package:apptodo_lovepeople/presenter/home_controller.dart';
+import 'package:apptodo_lovepeople/presenter/list_todo_controller.dart';
+import 'package:apptodo_lovepeople/presenter/register_login_controller.dart';
+import 'package:apptodo_lovepeople/presenter/register_todo_controller.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
-import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
-import 'package:apptodo_lovepeople/view/user/register_user.dart';
-import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,10 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomePresenter()),
-        ChangeNotifierProvider(create: (_) => ListTodoPresenter()),
-        ChangeNotifierProvider(create: (_) => RegisterTodoPresenter()),
-        ChangeNotifierProvider(create: (_) => RegisterLoginPresenter()),
+        ChangeNotifierProvider(create: (_) => HomeController()),
+        ChangeNotifierProvider(create: (_) => ListTodoController()),
+        ChangeNotifierProvider(create: (_) => RegisterTodoController()),
+        ChangeNotifierProvider(create: (_) => RegisterLoginController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -34,9 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: const ColorScheme(
             primary: Color(0xFFA901F7),
-            primaryVariant: Color(0xFFA901F7),
             secondary: Color(0xFFA901F7),
-            secondaryVariant: Color(0xFFA901F7),
             surface: Color(0xFFA901F7),
             background: Color(0xFFA901F7),
             error: Color(0xFFA901F7),
@@ -48,7 +40,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home: LoginPage(),
+        home: const LoginPage(),
       ),
     );
   }

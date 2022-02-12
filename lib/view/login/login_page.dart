@@ -1,9 +1,8 @@
-import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
+import 'package:apptodo_lovepeople/presenter/home_controller.dart';
 import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void didChangeDependencies() {
-    context.read<HomePresenter>().tokenCheck().then((value) {
+    context.read<HomeController>().tokenCheck().then((value) {
       if (value) {
         goHome(context);
       }
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
-        body: Consumer<HomePresenter>(builder: (context, controller, child) {
+        body: Consumer<HomeController>(builder: (context, controller, child) {
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -171,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
-                                    Color(0xff3101B9)),
+                                    const Color(0xff3101B9)),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -215,7 +214,8 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (_) => RegisterUserlogin()));
+                                          builder: (_) =>
+                                              const RegisterUserlogin()));
                                 },
                               ),
                             ],

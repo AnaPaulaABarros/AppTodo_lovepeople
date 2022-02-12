@@ -83,19 +83,20 @@ class TodoApi {
       Map<String, dynamic> json = jsonDecode(response.body);
       RegisterTodo resp = RegisterTodo.fromJson(json);
     }
+  }
+}
 
-    Future<DeleteTodo?> deletar(int idTodo) async {
-      //NÃO APARECE COMO MÉTODO NA PRESENTER
-      return http
-          .delete(
-        Uri.parse('https://todo-lovepeople.herokuapp.com/todos/${idTodo}'),
-      )
-          .then((value) async {
-        if (response.statusCode == 200) {
-          Map<String, dynamic> json = jsonDecode(response.body);
-          DeleteTodo resp = DeleteTodo.fromJson(json);
-        }
-      });
-    }
+class DeleteItemRepository {
+  Future<DeleteTodo?> deleteItem(int? id) async {
+    var uri = Uri.parse('https://todo-lovepeople.herokuapp.com/todos/$id');
+    Map<String, String> header = {};
+    return http.delete(uri, headers: header).then((response) async {
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return DeleteTodo.fromJson(json);
+      } else {
+        return null;
+      }
+    });
   }
 }
