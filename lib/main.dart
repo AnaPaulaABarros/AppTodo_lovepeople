@@ -3,6 +3,7 @@ import 'package:apptodo_lovepeople/presenter/list_todo_controller.dart';
 import 'package:apptodo_lovepeople/presenter/register_login_controller.dart';
 import 'package:apptodo_lovepeople/presenter/register_todo_controller.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
+import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
         ),
-        home: const LoginPage(),
+        home: LoginPage(),
       ),
     );
   }

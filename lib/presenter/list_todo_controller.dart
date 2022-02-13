@@ -23,9 +23,9 @@ class ListTodoController extends ChangeNotifier {
     delete.deleteItem(tasklist.id).then((response) {
       if (response != null) {
         todos.remove(tasklist);
-        notifyListeners();
       }
     });
+    notifyListeners();
   }
 
   void filter(String filters) {
