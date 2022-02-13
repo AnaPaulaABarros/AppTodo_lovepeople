@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:apptodo_lovepeople/presenter/home_presenter.dart';
-import 'package:apptodo_lovepeople/presenter/register_login_presenter.dart';
+import 'package:apptodo_lovepeople/presenter/home_controller.dart';
+import 'package:apptodo_lovepeople/presenter/register_login_controller.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
 import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
 
   @override
   void didChangeDependencies() {
-    context.read<RegisterLoginPresenter>().tokenCheck().then((value) {
+    context.read<RegisterLoginController>().tokenCheck().then((value) {
       if (value) {
         goCadastro(context);
       }
@@ -36,7 +36,7 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFA901F7),
-        body: Consumer<RegisterLoginPresenter>(
+        body: Consumer<RegisterLoginController>(
             builder: (context, controller, child) {
           return ListView(padding: const EdgeInsets.all(20), children: [
             const SizedBox(

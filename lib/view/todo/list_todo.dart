@@ -1,12 +1,15 @@
 import 'package:apptodo_lovepeople/model/list_todo.dart';
-import 'package:apptodo_lovepeople/model/login_user.dart';
-import 'package:apptodo_lovepeople/presenter/list_todo_presenter.dart';
+import 'package:apptodo_lovepeople/presenter/list_todo_controller.dart';
+import 'package:apptodo_lovepeople/view/login/login_page.dart';
 import 'package:apptodo_lovepeople/view/todo/register_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ListTodoPage extends StatefulWidget {
-  ListTodoPage({Key? key}) : super(key: key);
+  ListTodoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ListTodoPage> createState() => _ListTodoPageState();
@@ -23,9 +26,11 @@ class _ListTodoPageState extends State<ListTodoPage> {
 
   String filterText = '';
 
+  late ListTodo tasksNew;
+
   @override
   void didChangeDependencies() {
-    context.read<ListTodoPresenter>().obterListTodo();
+    context.read<ListTodoController>().obterListTodo();
     super.didChangeDependencies();
   }
 
@@ -33,19 +38,30 @@ class _ListTodoPageState extends State<ListTodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffA901F7),
-      body: Consumer<ListTodoPresenter>(builder: (context, controller, child) {
+      body: Consumer<ListTodoController>(builder: (context, controller, child) {
         return Stack(children: [
           Container(
             padding: const EdgeInsets.all(10),
             alignment: AlignmentDirectional.topEnd,
-            child: TextButton(
-                onPressed: () {},
-                child: const Text('SAIR',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold))),
+            child: FloatingActionButton(
+              elevation: 0,
+              onPressed: () async {
+                SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                bool jwt = await sharedPreferences.remove('jwt');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
           ),
           Padding(
               padding: const EdgeInsets.all(20),
@@ -64,11 +80,9 @@ class _ListTodoPageState extends State<ListTodoPage> {
                 ),
                 Center(
                   child: TextField(
-                    // onChanged: (text) {
-                    // setState((){
-                    // filterText = text;
-                    //    });
-                    // },
+                    onChanged: (filters) {
+                      controller.filter(filters);
+                    },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -77,6 +91,7 @@ class _ListTodoPageState extends State<ListTodoPage> {
                         child: Icon(
                           Icons.search,
                           color: Color(0xff3101B9),
+                          size: 30,
                         ),
                       ),
                       hintStyle: const TextStyle(
@@ -90,41 +105,9 @@ class _ListTodoPageState extends State<ListTodoPage> {
                   child: ListView.builder(
                       itemCount: controller.todos.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                            title: Text(
-                              '${index + 1} - ${controller.todos[index].title}',
-                              style: const TextStyle(
-                                  color: Color(0xFF3101B9),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            onTap: () {},
-                            trailing: IconButton(
-                              onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                    title: const Text('Deletar'),
-                                    content:
-                                        const Text('Deseja deletar este item?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text("Cancel"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ]),
-                              ),
-                              icon: const Icon(
-                                Icons.delete_sharp,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                            ));
+                        final todo = controller.todos[index];
+                        return tasks(controller, todo,
+                            context); // dando erro nesta parte
                       }),
                 ),
                 ElevatedButton(
@@ -132,7 +115,7 @@ class _ListTodoPageState extends State<ListTodoPage> {
                   onPressed: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(
-                            builder: (context) => RegisterTodos()))
+                            builder: (context) => const RegisterTodos()))
                         .then((value) {
                       if (value) {
                         controller.obterListTodo();
@@ -171,16 +154,127 @@ class _ListTodoPageState extends State<ListTodoPage> {
   }
 }
 
-Widget _tarefas(ListTodoPresenter controller, Todos todo) {
+Widget tasks(
+    ListTodoController controller, ListTodo tasksList, BuildContext context) {
   return Container(
     height: 120,
-    width: 420,
+    width: 500,
     margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: setColor(tasksList.color),
       border: Border.all(width: 2, color: Colors.white),
       borderRadius: BorderRadius.circular(10),
     ),
+    child: Row(children: [
+      Container(
+        alignment: Alignment.topLeft,
+        height: 120,
+        width: 250,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              tasksList.title ?? "",
+              style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF3101B9)),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              tasksList.description ?? "",
+              style: const TextStyle(fontSize: 15, color: Color(0xFF3101B9)),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        alignment: Alignment.topRight,
+        height: 120,
+        width: 50,
+        child: IconButton(
+          padding: const EdgeInsets.only(bottom: 70),
+          alignment: Alignment.centerRight,
+          icon: const Icon(
+            Icons.delete_sharp,
+            color: Color.fromARGB(255, 51, 30, 109),
+            size: 50,
+          ),
+          onPressed: () {
+            deleteList(controller, tasksList, context);
+          },
+        ),
+      ),
+    ]),
   );
+}
+
+Color setColor(String? color) {
+  try {
+    return Color(int.parse('0xFF${color?.replaceAll('#', '')}'));
+  } catch (e) {
+    return Colors.transparent;
+  }
+}
+
+void deleteList(
+    ListTodoController controller, ListTodo tasksList, BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Deseja deletar este item?",
+            style: TextStyle(
+              color: Color(0xFF3101B9),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          content: Text(
+            " ${tasksList.title!} será movido para lixeira.",
+            style: const TextStyle(
+              color: Color(0xFF3101B9),
+              fontSize: 18,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                controller.deleteItem(tasksList);
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Confirmar",
+                style: TextStyle(
+                  color: Color(0xFF3101B9),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Cancelar",
+                style: TextStyle(
+                  color: Color(0xFFA901F7),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
+        );
+      });
 }

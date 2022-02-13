@@ -1,32 +1,34 @@
-
 import 'dart:convert';
-
 import 'package:apptodo_lovepeople/model/login_user.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:apptodo_lovepeople/view/login/login_page.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserPreferences { 
+class UserPreferences {
+  final userKey = 'LoginKey';
 
+  Future<void> salveLogin(LoginUser login) async {
+    final resp = await SharedPreferences.getInstance();
 
-final userKey = 'LoginKey';
+    resp.setString(userKey, jsonEncode(login.toJson()));
+  }
 
-Future<void> salveLogin( LoginUser login) async {
+  Future<LoginUser?> getLogin() async {
+    final resp = await SharedPreferences.getInstance();
+    final cache = resp.getString(userKey);
 
-final resp = await SharedPreferences.getInstance();
+    if (cache != null && cache.isNotEmpty) {
+      return LoginUser.fromJson(jsonDecode(cache));
+    }
+    return null;
+  }
 
-resp.setString(userKey, jsonEncode(login.toJson()));
-
-}
-
-Future<LoginUser?> getLogin ()async{
-final resp = await SharedPreferences.getInstance();
-
-final cache = resp.getString(userKey);
-
-if (cache != null && cache.isNotEmpty){
-  return LoginUser.fromJson(jsonDecode(cache));
-}
-return null; 
-}
-
+//   void exit() async {
+//     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+//     bool jwt = await sharedPreferences.remove('jwt');
+//     Navigator.push(context,MaterialPageRoute(
+//         builder: (context) => LoginPage(),
+//       ),
+//     );
+//   }
 }
