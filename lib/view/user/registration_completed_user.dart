@@ -1,10 +1,7 @@
-import 'package:apptodo_lovepeople/model/register_Todo.dart';
 import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RegistrationCompleted extends StatelessWidget {
-  
   const RegistrationCompleted({Key? key}) : super(key: key);
 
   @override
@@ -27,33 +24,26 @@ class RegistrationCompleted extends StatelessWidget {
                     ),
                     child: const Text(
                       'Cadastro concluído!',
-                      style: 
-                       TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {
-
-                      Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ListTodoPage()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => ListTodoPage()));
                     },
-                    
                     child: const Text(
                       'Começar',
-                      style:   TextStyle(
-                            fontSize: 20,
-                            height: 1.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                  ),
-                    
+                      style: TextStyle(
+                          fontSize: 20,
+                          height: 1.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         const Color(0xff3101B9),
@@ -66,7 +56,6 @@ class RegistrationCompleted extends StatelessWidget {
                         ),
                       ),
                     ),
-                  
                   ),
                 ],
               ),
@@ -103,11 +92,10 @@ class RegistrationCompleted extends StatelessWidget {
                       const Text(
                         'Os ventos da programação estão indo até você',
                         style: TextStyle(
-                            fontSize: 15.8,
-                            color: Color(0xff3101B9),
-                            fontWeight: FontWeight.w400,
-                            // height: 16.5,
-                         
+                          fontSize: 15.8,
+                          color: Color(0xff3101B9),
+                          fontWeight: FontWeight.w400,
+                          // height: 16.5,
                         ),
                         textAlign: TextAlign.center,
                       ),
