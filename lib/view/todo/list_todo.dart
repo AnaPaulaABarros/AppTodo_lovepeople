@@ -17,14 +17,12 @@ class ListTodoPage extends StatefulWidget {
 
 class _ListTodoPageState extends State<ListTodoPage> {
   bool hidepassword = true;
-
+  bool isLoading = false;
   get adicionarRegistro => null;
 
   final _formkey = GlobalKey<FormState>();
 
   final _controler = TextEditingController();
-
-  String filterText = '';
 
   late ListTodo tasksNew;
 
@@ -80,8 +78,8 @@ class _ListTodoPageState extends State<ListTodoPage> {
                 ),
                 Center(
                   child: TextField(
-                    onChanged: (filters) {
-                      controller.filter(filters);
+                    onChanged: (todos) {
+                      controller.filter(todos);
                     },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
@@ -106,8 +104,7 @@ class _ListTodoPageState extends State<ListTodoPage> {
                       itemCount: controller.todos.length,
                       itemBuilder: (context, index) {
                         final todo = controller.todos[index];
-                        return tasks(controller, todo,
-                            context); // dando erro nesta parte
+                        return tasks(controller, todo, context);
                       }),
                 ),
                 ElevatedButton(
@@ -205,6 +202,7 @@ Widget tasks(
           ),
           onPressed: () {
             deleteList(controller, tasksList, context);
+            controller.obterListTodo();
           },
         ),
       ),

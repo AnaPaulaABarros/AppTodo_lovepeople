@@ -11,28 +11,29 @@ class ListTodoController extends ChangeNotifier {
   void obterListTodo() {
     api.listTodo().then((value) {
       todos = value;
+      _originalTodos = value;
       notifyListeners();
     }).onError((erro, _) {});
   }
 
   final api2 = DeleteItemRepository();
 
-  late DeleteItemRepository delete;
+  //final DeleteItemRepository delete;
 
   void deleteItem(ListTodo tasklist) {
-    delete.deleteItem(tasklist.id).then((response) {
+    api2.deleteItem(tasklist.id).then((response) {
       if (response != null) {
         todos.remove(tasklist);
       }
+      notifyListeners();
     });
-    notifyListeners();
   }
 
   void filter(String filters) {
     todos = _originalTodos
-        .where((element) =>
-            element.title!.toLowerCase().contains(filters.toLowerCase()) ||
-            element.description!.toLowerCase().contains(filters.toLowerCase()))
+        .where((todos) =>
+            todos.title!.toLowerCase().contains(filters.toLowerCase()) ||
+            todos.description!.toLowerCase().contains(filters.toLowerCase()))
         .toList();
     notifyListeners();
   }
