@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:apptodo_lovepeople/model/login_user.dart';
-import 'package:apptodo_lovepeople/view/login/login_page.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {

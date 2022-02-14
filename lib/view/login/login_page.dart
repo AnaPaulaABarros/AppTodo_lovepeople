@@ -201,7 +201,6 @@ class _LoginPageState extends State<LoginPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-
                               // ignore: deprecated_member_use
                               FlatButton(
                                 child: Text(

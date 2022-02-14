@@ -1,9 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:apptodo_lovepeople/presenter/home_controller.dart';
 import 'package:apptodo_lovepeople/presenter/register_login_controller.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
-import 'package:apptodo_lovepeople/view/todo/list_todo.dart';
+import 'package:apptodo_lovepeople/view/user/registration_completed_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -248,7 +247,7 @@ class _RegisterUserloginState extends State<RegisterUserlogin> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const LoginPage(),
+        builder: (context) => const RegistrationCompleted(),
       ),
     );
   }

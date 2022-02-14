@@ -18,8 +18,6 @@ class ListTodoController extends ChangeNotifier {
 
   final api2 = DeleteItemRepository();
 
-  //final DeleteItemRepository delete;
-
   void deleteItem(ListTodo tasklist) {
     api2.deleteItem(tasklist.id).then((response) {
       if (response != null) {

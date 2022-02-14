@@ -1,9 +1,6 @@
 import 'package:apptodo_lovepeople/model/Api/api_todo.dart';
-import 'package:apptodo_lovepeople/model/login_user.dart';
-import 'package:apptodo_lovepeople/model/repository/repository_user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/register_user.dart';
 
 class RegisterLoginController extends ChangeNotifier {
