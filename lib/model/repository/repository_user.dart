@@ -22,13 +22,4 @@ class UserPreferences {
     }
     return null;
   }
-
-//   void exit() async {
-//     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-//     bool jwt = await sharedPreferences.remove('jwt');
-//     Navigator.push(context,MaterialPageRoute(
-//         builder: (context) => LoginPage(),
-//       ),
-//     );
-//   }
 }

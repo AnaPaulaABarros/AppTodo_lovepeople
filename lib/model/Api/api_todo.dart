@@ -87,10 +87,15 @@ class TodoApi {
 }
 
 class DeleteItemRepository {
-  Future<DeleteTodo?> deleteItem(int? id) async {
-    var uri = Uri.parse('https://todo-lovepeople.herokuapp.com/todos/$id');
-    Map<String, String> header = {};
-    return http.delete(uri, headers: header).then((response) async {
+  Future<DeleteTodo?> deleteItem(int? idTodo) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? jwt = sharedPreferences.getString('jwt');
+    var uri =
+        Uri.parse('https://todo-lovepeople.herokuapp.com/todos/${idTodo}');
+    Map<String, String> headers = {
+      "Authorization": "Bearer $jwt",
+    };
+    return http.delete(uri, headers: headers).then((response) async {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         return DeleteTodo.fromJson(json);
