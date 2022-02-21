@@ -124,8 +124,6 @@ class _RegisterTodoState extends State<RegisterTodos> {
                         Container(
                           alignment: AlignmentDirectional.center,
                           child: mapaDeCores(),
-                          margin: const EdgeInsets.only(
-                              top: 10, left: 40, right: 40),
                           height: 40,
                         ),
                         const SizedBox(
@@ -222,6 +220,8 @@ class _RegisterTodoState extends State<RegisterTodos> {
 
   ListView mapaDeCores() {
     return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemCount: _cores.length,
       itemBuilder: (context, index) {
