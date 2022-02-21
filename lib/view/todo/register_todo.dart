@@ -28,11 +28,12 @@ class _RegisterTodoState extends State<RegisterTodos> {
         builder: (context, controller, child) {
           return Stack(
             children: [
-              Form(
-                key: _formkey,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
+              SingleChildScrollView(
+                child: Form(
+                  key: _formkey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -86,37 +87,34 @@ class _RegisterTodoState extends State<RegisterTodos> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Expanded(
-                          child: SizedBox(
-                            height: 200,
-                            child: TextFormField(
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 50,
-                              textAlign: TextAlign.left,
-                              controller: _controlerAssignment,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Preenchimento obrigatorio!';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                hintText:
-                                    ('Escreva uma descrição para sua tarefa.'),
-                                hintStyle: TextStyle(
-                                  color:
-                                      const Color(0xFF3101B9).withOpacity(0.5),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                    )),
+                        SizedBox(
+                          height: 200,
+                          child: TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 50,
+                            textAlign: TextAlign.left,
+                            controller: _controlerAssignment,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Preenchimento obrigatorio!';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText:
+                                  ('Escreva uma descrição para sua tarefa.'),
+                              hintStyle: TextStyle(
+                                color: const Color(0xFF3101B9).withOpacity(0.5),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
                               ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(
+                                    color: Colors.white,
+                                  )),
                             ),
                           ),
                         ),
@@ -126,8 +124,6 @@ class _RegisterTodoState extends State<RegisterTodos> {
                         Container(
                           alignment: AlignmentDirectional.center,
                           child: mapaDeCores(),
-                          margin: const EdgeInsets.only(
-                              top: 10, left: 40, right: 40),
                           height: 40,
                         ),
                         const SizedBox(
@@ -155,43 +151,45 @@ class _RegisterTodoState extends State<RegisterTodos> {
                                 width: 80,
                               ),
                               ElevatedButton(
-                                  style: ButtonStyle(
-                                      elevation: MaterialStateProperty.all(0)),
-                                  onPressed: () {
-                                    String title = _controlerTitle.text;
-                                    String assignment =
-                                        _controlerAssignment.text;
-                                    if (title.isNotEmpty &&
-                                        assignment.isNotEmpty) {
-                                      controller.registrarTodo(
-                                        title,
-                                        assignment,
-                                        _cor,
-                                        () {
-                                          Navigator.of(context).pop(true);
-                                        },
-                                        () {
-                                          const snackBar = SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text(
-                                                'Sua tarefa não foi cadastrada'),
-                                          );
+                                style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(0)),
+                                onPressed: () {
+                                  String title = _controlerTitle.text;
+                                  String assignment = _controlerAssignment.text;
+                                  if (title.isNotEmpty &&
+                                      assignment.isNotEmpty) {
+                                    controller.registrarTodo(
+                                      title,
+                                      assignment,
+                                      _cor,
+                                      () {
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      () {
+                                        const snackBar = SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text(
+                                              'Sua tarefa não foi cadastrada'),
+                                        );
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                    size: 70,
-                                  ))
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      },
+                                    );
+                                  }
+                                },
+                                child: const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 70,
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ]),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -222,6 +220,8 @@ class _RegisterTodoState extends State<RegisterTodos> {
 
   ListView mapaDeCores() {
     return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemCount: _cores.length,
       itemBuilder: (context, index) {

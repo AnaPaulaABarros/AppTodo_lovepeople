@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
             onBackground: Color(0xFFA901F7),
             onError: Color(0xFFA901F7),
             brightness: Brightness.light,
+            primaryVariant: Color(0xFFA901F7),
+            secondaryVariant: Color(0xFFA901F7),
           ),
         ),
         home: LoginPage(),
