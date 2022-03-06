@@ -3,16 +3,22 @@ import 'package:apptodo_lovepeople/presenter/list_todo_controller.dart';
 import 'package:apptodo_lovepeople/presenter/register_login_controller.dart';
 import 'package:apptodo_lovepeople/presenter/register_todo_controller.dart';
 import 'package:apptodo_lovepeople/view/login/login_page.dart';
-import 'package:apptodo_lovepeople/view/user/register_user.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+
+
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
+   //final FirebaseAnalytics analytics = FirebaseAnalytics();
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +45,13 @@ class MyApp extends StatelessWidget {
             onBackground: Color(0xFFA901F7),
             onError: Color(0xFFA901F7),
             brightness: Brightness.light,
-          ),
+          )
         ),
         home: LoginPage(),
+     //   navigatorObservers: [
+         // FirebaseAnalyticsObserver(analytics: analytics),
+       // ],
       ),
     );
-  }
+      }
 }

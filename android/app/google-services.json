@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605243347725",
+    "project_id": "app-todo-love",
+    "storage_bucket": "app-todo-love.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605243347725:android:99cdf6fb585f36d4bc5644",
+        "android_client_info": {
+          "package_name": "com.example.apptodo_lovepeople"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605243347725-bjrtqiu0qn0ne4n8ptpbu5h87d5g90fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvVpLZlK6dYUZKY1jOV_aHPyeiC62GMVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605243347725-bjrtqiu0qn0ne4n8ptpbu5h87d5g90fj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
