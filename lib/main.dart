@@ -9,19 +9,23 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-
-
-void main() {
-  runApp( MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
    MyApp({Key? key}) : super(key: key);
-   //final FirebaseAnalytics analytics = FirebaseAnalytics();
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  
 
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomeController()),
@@ -33,25 +37,24 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: const ColorScheme(
-            primary: Color(0xFFA901F7),
-            secondary: Color(0xFFA901F7),
-            surface: Color(0xFFA901F7),
-            background: Color(0xFFA901F7),
-            error: Color(0xFFA901F7),
-            onPrimary: Color(0xFFA901F7),
-            onSecondary: Color(0xFFA901F7),
-            onSurface: Color(0xFFA901F7),
-            onBackground: Color(0xFFA901F7),
-            onError: Color(0xFFA901F7),
-            brightness: Brightness.light,
-          )
-        ),
+            colorScheme: const ColorScheme(
+          primary: Color(0xFFA901F7),
+          secondary: Color(0xFFA901F7),
+          surface: Color(0xFFA901F7),
+          background: Color(0xFFA901F7),
+          error: Color(0xFFA901F7),
+          onPrimary: Color(0xFFA901F7),
+          onSecondary: Color(0xFFA901F7),
+          onSurface: Color(0xFFA901F7),
+          onBackground: Color(0xFFA901F7),
+          onError: Color(0xFFA901F7),
+          brightness: Brightness.light,
+        )),
         home: LoginPage(),
-     //   navigatorObservers: [
-         // FirebaseAnalyticsObserver(analytics: analytics),
-       // ],
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
       ),
     );
-      }
+  }
 }
